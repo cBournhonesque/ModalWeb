@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+
+.parNormal {
+	font-family: Helvetica;
+	font-size: 18 pt;
+}
+
+.titre {
+	font-family: 'Lobster', cursive;
+}
+
+body {
+	min-height: 2000px;
+	padding-top: 50px;
+	font-family: Helvetica;
+	
+}
+
+.footer {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	margin-top: 40px;
+	border-top: 1px solid #eee;
+}
+
+/* Main marketing message and sign up button */
+@keyframes Fadein {
+  0% {
+  opacity:1;
+}
+45% {
+opacity:1;
+}
+55% {
+opacity:0;
+}
+90% {
+opacity:0;
+}
+}
+
+
+#imageBot{
+	float: right;
+	width: 100%;
+	height: 100%;
+	background: url("/Bootstrap/Media/Fonds/FondVolleyball.jpg") no-repeat center center;
+	position: absolute;
+	z-index: -2;
+	left: 0;
+	top: 0;
+}
+
+#imageTop{
+	z-index: -1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url("/Bootstrap/Media/Fonds/FondBasketball.jpg") no-repeat center center;
+	animation: Fadein 10s ease-in-out infinite alternate;
+
+    -webkit-animation: Fadein 15s ease-in-out infinite alternate;
+  
+}
+
+
+
+.jumbotron {
+	background: transparent;
+	position: relative;
+	text-align: center;
+	padding-left: 30%;
+	color: white;
+	
+	
+}
+
+.jumbotron .btn {
+	padding: 7px 10px;
+	font-size: 19px;
+}
