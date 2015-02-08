@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page>
+		<nom>welcome</nom>
+		<menutitle>Accueil</menutitle>
+		<title>Bienvenue chez U Sports</title>
+	</page>
+	<bouton>
+		<nomBouton>Sport</nomBouton>
+		<page>
+			<img alt="Icone Basketball" src="Media/Icones/IconeBasketball.png">1</img>
+				<nom>basketball</nom>
+				<menutitle>Basketball</menutitle>
+				<title>Sport : Basketball</title>
+		</page>
+		<page>
+			<nom>football</nom>
+			<menutitle>Football</menutitle>
+			<title>Sport : Football</title>
+		</page>
+		<page>
+			<nom>volleyball</nom>
+			<menutitle>Volleyball</menutitle>
+			<title>Sport : Volleyball</title>
+		</page>
+	</bouton>
+	<page>
+		<nom>dessiner</nom>
+		<menutitle>Dessiner</menutitle>
+		<title>Réalisez vos stratégies sportives</title>
+	</page>
+	<page>
+		<nom>planning</nom>
+		<menutitle>Planning</menutitle>
+		<title>Planning des entraînements</title>
+	</page>
+	<page>
+		<nom>resultats</nom>
+		<menutitle>Résultats</menutitle>
+		<title>Résultats des matchs</title>
+	</page>
+
+	<page>
+		<nom>faq</nom>
+		<menutitle>FAQ</menutitle>
+		<title>Questions fréquentes?</title>
+	</page>
+	<bouton>
+		<nomBouton>About</nomBouton>
+		<page>
+			<nom>whoami</nom>
+			<menutitle>Qui sommes nous?</menutitle>
+			<title>Qui sommes nous?</title>
+		</page>
+		<page>
+			<nom>contact</nom>
+			<menutitle>Contact</menutitle>
+			<title>Comment nous contacter?</title>
+		</page>
+	</bouton>
+	<page>
+		<nom>signin</nom>
+		<menutitle>Connexion</menutitle>
+		<title>Connexion</title>
+	</page>
+
+
+</pages>

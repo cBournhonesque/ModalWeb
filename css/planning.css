@@ -1,2 +1,33 @@
 @CHARSET "UTF-8";
 
+h1{
+  text-align: center; 
+  
+}
+
+section{
+	padding-left: 20%;
+	padding-right: 20%;
+	
+}
+
+
+.p {
+	font-family: Helvetica;
+	font-size: 18 pt;
+}
+
+body {
+	
+	padding-top: 50px;
+	font-family: Helvetica;
+	
+}
+
+.footer {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	margin-top: 40px;
+	border-top: 1px solid #eee;
+}@CHARSET "UTF-8";
+
