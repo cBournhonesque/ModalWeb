@@ -9,9 +9,9 @@
 		<nomBouton>Sport</nomBouton>
 		<page>
 			<img alt="Icone Basketball" src="Media/Icones/IconeBasketball.png">1</img>
-			<nom>basketball</nom>
-			<menutitle>Basketball</menutitle>
-			<title>Sport : Basketball</title>
+				<nom>basketball</nom>
+				<menutitle>Basketball</menutitle>
+				<title>Sport : Basketball</title>
 		</page>
 		<page>
 			<nom>football</nom>
@@ -58,31 +58,7 @@
 			<title>Comment nous contacter?</title>
 		</page>
 	</bouton>
-	<page>
-		<nom>login</nom>
-		<menutitle>Connexion</menutitle>
-		<title>Connexion</title>
-	</page>
-	<page>
-		<nom>signup</nom>
-		<menutitle>S'inscrire</menutitle>
-		<title>S'inscrire</title>
-	</page>
-	<page>
-		<nom>changepw</nom>
-		<menutitle>Changer le mot de passe</menutitle>
-		<title>Changement de mot de passe</title>
-	</page>
-	<page>
-		<nom>deleteuser</nom>
-		<menutitle>Suppression du compte</menutitle>
-		<title>Suppression du compte</title>
-	</page>
-	<page>
-		<nom>myacc</nom>
-		<menutitle>Mon Compte</menutitle>
-		<title>Mon Compte</title>
-	</page>
+	
 
 
 </pages>

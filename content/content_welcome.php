@@ -1,5 +1,5 @@
 <?php
-function afficher(){
+
 	echo <<<FIN
 	<!-- Jumbotron -->
 		<div class="jumbotron">
@@ -11,11 +11,11 @@ function afficher(){
 			<p class="lead">U Sports est votre outil principal d'élaboration de
 				stratégies sportives.</p>
 			<p>
-				<a class="btn btn-lg btn-success" href="#" role="button">Créer un
+				<a class="btn btn-lg btn-success" href="index.php?page=signup&oldPage=$askedPage" role="button">Créer un
 					compte</a>
 			</p>
 			<p>
-				<a class="btn btn-lg btn-success" href="index.php?page=signin" role="button">Se
+				<a class="btn btn-lg btn-success" href="index.php?page=login&oldPage=$askedPage" role="button">Se
 					connecter</a>
 
 			</p>
@@ -64,5 +64,5 @@ function afficher(){
 
 	</div>
 FIN;
-}
+
 ?>

@@ -1,7 +1,13 @@
-body {
-  padding-top: 40px;
+#content {
+  padding-top: 50px;
   padding-bottom: 40px;
   background-color: #eee;
+  font-family: Helvetica;
+}
+
+.p {
+	font-family: Helvetica;
+	font-size: 18 pt;
 }
 
 .form-signin {

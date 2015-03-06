@@ -1,5 +1,11 @@
 <?php
-function generateHTMLHeader($title,$css) {
+function secure($tab) {
+	foreach ( $tab as $cle => $valeur ) {
+		$tab [$cle] = htmlspecialchars ( $valeur );
+	}
+	return $tab;
+}
+function generateHTMLHeader($title, $css) {
 	echo <<<ENDLINE
 	<!DOCTYPE html>
 <html>
@@ -20,13 +26,14 @@ function generateHTMLHeader($title,$css) {
 <link href="css/bootstrap.css" rel="stylesheet">
 
 <!-- CSS Perso -->
+<link href="css/welcome.css" rel="stylesheet">
 <link href="css/$css.css" rel="stylesheet">
 
 </head>
 ENDLINE;
 }
-function generateMenu($askedPage) { //générer le menu à partir du fichier xml/pages.xml
-	$xmlPages = simplexml_load_file ( "xml/pages.xml" );
+function generateMenu($askedPage, $loggedIn) { // générer le menu à partir du fichier xml/pages.xml
+	$xmlPages = simplexml_load_file ( "xml/menuPages.xml" );
 	
 	echo <<<FIN
 	<header>
@@ -48,46 +55,65 @@ function generateMenu($askedPage) { //générer le menu à partir du fichier xml
 					<ul class="nav navbar-nav">
 FIN;
 	
-	foreach($xmlPages->children() as $bout){ //on regarde les differents "bout" dans pages 
-		if ($bout->getName() == 'page') {
+	foreach ( $xmlPages->children () as $bout ) { // on regarde les differents "bout" dans pages
+		if ($bout->getName () == 'page') {
 			if ($bout->nom == $askedPage) {
-				echo '<li class="active"><a href=index.php?page='.$bout->nom.'>'.$bout->menutitle.'</a></li>'.PHP_EOL;
+				echo '<li class="active"><a href=index.php?page=' . $bout->nom . '>' . $bout->menutitle . '</a></li>' . PHP_EOL;
 			} else {
-				echo '<li><a href=index.php?page='.$bout->nom.'>'.$bout->menutitle.'</a></li>'.PHP_EOL;
+				echo '<li><a href=index.php?page=' . $bout->nom . '>' . $bout->menutitle . '</a></li>' . PHP_EOL;
 			}
 		}
 		if ($bout->getName () == 'bouton') {
 			echo '<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">'.$bout->nomBouton.
-								'<span class="caret"></span>
+							data-toggle="dropdown" role="button" aria-expanded="false">' . $bout->nomBouton . '<span class="caret"></span>
 						</a>
-							<ul class="dropdown-menu" role="menu">'.PHP_EOL;
-			$tabPages=$bout->page;
-			foreach($tabPages as $page){
+							<ul class="dropdown-menu" role="menu">' . PHP_EOL;
+			$tabPages = $bout->page;
+			foreach ( $tabPages as $page ) {
 				if ($page->nom == $askedPage) {
-					echo '<li class="active"><a href=index.php?page='.$page->nom.'>'.$page->menutitle.'</a></li>'.PHP_EOL;
+					echo '<li class="active"><a href=index.php?page=' . $page->nom . '>' . $page->menutitle . '</a></li>' . PHP_EOL;
 				} else {
-					echo '<li><a href=index.php?page='.$page->nom.'>'.$page->menutitle.'</a></li>'.PHP_EOL;
+					echo '<li><a href=index.php?page=' . $page->nom . '>' . $page->menutitle . '</a></li>' . PHP_EOL;
 				}
 			}
 			
-			echo '</ul></li>'.PHP_EOL;
+			echo '</ul></li>' . PHP_EOL;
 		}
 	}
+	echo '</ul>' . PHP_EOL;
+	// si l'utilisateur est connecté
+	if ($loggedIn) {
+		echo <<<FIN
 	
-echo <<<FIN
-</ul>
-
+				<ul class="nav navbar-nav navbar-right">
+				<li><a href="index.php?page=myacc">Mon compte</a></li>
+		<li><a href="index.php?logOut=true">Déconnexion</a></li>
+		</ul>
+		
 				</div>
 				<!--/.nav-collapse -->
 			</div>
 		</nav>
-
+		
 	</header>
 FIN;
+	} else { // s'il est déconnecté
+		
+		echo <<<FIN
 	
+		<ul class="nav navbar-nav navbar-right">
+		<li><a href="index.php?page=login&oldPage=$askedPage">Connexion</a></li>
+				<li><a href="index.php?page=signup&oldPage=$askedPage">S'inscrire</a></li>
+		</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+		
+	</header>
+FIN;
+	}
 }
-
 
 /* Renvoit un booléen pour indiquer si la page demandée est parmi celles authorisées */
 function checkPage($askedPage) {
@@ -96,7 +122,7 @@ function checkPage($askedPage) {
 	$xmlPages = simplexml_load_file ( "xml/pages.xml" );
 	
 	// récupération des noeuds correspondant aux balises "page"
-	$tableauDesPages = $xmlPages->page;
+	$tableauDesPages = $xmlPages->xpath ( "//page" );
 	
 	// Parcours du tableau des pages
 	foreach ( $tableauDesPages as $page ) {
@@ -114,7 +140,7 @@ function getPageTitle($nom) {
 	$xmlPages = simplexml_load_file ( "xml/pages.xml" );
 	
 	// récupération des noeuds correspondant aux balises "page"
-	$tableauDesPages = $xmlPages->page;
+	$tableauDesPages = $xmlPages->xpath ( "//page" );
 	
 	// Parcours du tableau des pages
 	foreach ( $tableauDesPages as $page ) {
@@ -145,4 +171,5 @@ function generateHTMLFooter() {
 	<script src="js/bootstrap.js"></script>
 ENDLINE;
 }
+
 ?>

@@ -1,0 +1,32 @@
+SELECT * FROM `utilisateurs` WHERE `prenom`='Dominique'
+
+SELECT * FROM `utilisateurs` WHERE `promotion` IS NOT NULL
+
+SELECT * FROM `utilisateurs` WHERE (`naissance` < '1990-01-01' AND `naissance` > '1980-01-01')
+
+SELECT * FROM `utilisateurs` WHERE `email` LIKE '%.fr'
+
+SELECT * FROM `utilisateurs` WHERE MONTH(`naissance`)=3
+
+SELECT * FROM `utilisateurs` WHERE MONTH(`naissance`)=MONTH(NOW())
+
+SELECT * FROM `utilisateurs` ORDER BY prenom, nom
+
+SELECT * FROM `utilisateurs` ORDER BY `naissance`
+
+SELECT `nom`,`prenom` FROM `utilisateurs` ORDER BY `prenom`, `nom`
+
+SELECT `prenom`, `email` FROM `utilisateurs` WHERE `nom`='Weasley'
+
+SELECT nom, prenom FROM amis JOIN utilisateurs ON utilisateurs.login = amis.login1 WHERE login2='harry.potter'
+
+SELECT a.email
+FROM utilisateurs AS a
+JOIN amis ON a.login = amis.login1
+JOIN utilisateurs AS b ON b.login = amis.login2
+WHERE b.prenom = 'Dominique' AND a.prenom <>'Dominique'
+
+SELECT *
+FROM utilisateurs
+LEFT OUTER JOIN amis ON login = amis.login1
+WHERE login2 IS NULL

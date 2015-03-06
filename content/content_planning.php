@@ -1,5 +1,5 @@
 <?php 
-function afficher(){
+
 	echo <<<FIN
 		<h1>Planning des matchs</h1>
 		<section>
@@ -66,5 +66,5 @@ function afficher(){
 
 		</section>
 FIN;
-}
+
 		?>
