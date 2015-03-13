@@ -17,6 +17,33 @@ class Database {
 		return $dbh;
 	}
 }
+class Rencontre {
+	public $sport;
+	public $equipe1;
+	public $equipe2;
+	public $vainqueur;
+	public $score1;
+	public $score2;
+	public $date;
+	public $lieu;
+	public $poule;
+	public $cle;
+	public static function insererRencontre($dbh, $sport, $equipe1, $equipe2, $vainqueur, $score1, $score2, $date, $lieu, $poule) {
+		// opérations sur la base
+		$sth = $dbh->prepare ( "INSERT INTO `rencontres` (`sport`, `equipe1`, `equipe2`, `vainqueur`, `score1`, `score2`, `date`, `lieu`, `poule`) VALUES(?,?,?,?,?,?,?,?,?)" );
+		$sth->execute ( array (
+				$sport,
+				$equipe1,
+				$equipe2,
+				$vainqueur,
+				$score1,
+				$score2,
+				$date,
+				$lieu,
+				$poule 
+		) );
+	}
+}
 class Utilisateur {
 	public $login;
 	public $mdp;
@@ -26,7 +53,6 @@ class Utilisateur {
 	public $naissance;
 	public $email;
 	public $feuille;
-	
 	public function __toString() {
 		$date = explode ( "-", $this->naissance );
 		if (! is_null ( $this->promotion )) {
@@ -98,7 +124,7 @@ class Utilisateur {
 			return TRUE;
 		}
 	}
-	public function testerMdp( $mdp) {
+	public function testerMdp($mdp) {
 		return ($this->mdp == sha1 ( $mdp ));
 	}
 }

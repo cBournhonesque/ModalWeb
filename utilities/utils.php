@@ -18,18 +18,42 @@ function generateHTMLHeader($title, $css) {
 <meta name="keywords" content="U Sports Online Manager Coach" />
 <meta name="description" content="Online Sports Manager" />
 
-<link href='http://fonts.googleapis.com/css?family=Lobster'
-	rel='stylesheet' type='text/css'>
+
 <title>$title</title>
 
-<!-- CSS Bootstrap -->
+	<!-- CSS JQuery UI -->
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+	<!-- CSS Bootstrap -->
 <link href="css/bootstrap.css" rel="stylesheet">
 
-<!-- CSS Perso -->
-<link href="css/welcome.css" rel="stylesheet">
-<link href="css/$css.css" rel="stylesheet">
 
-</head>
+	<!-- CSS Perso -->
+<link href="css/welcome.css" rel="stylesheet">
+
+
+<link href="css/css_$css.css" rel="stylesheet">
+		
+  
+
+		
+		<!-- JAVASCRIPT -->	
+			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.js"></script>
+		
+		
+			<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/perso.js"></script>
+		
+
+		
+
+		
+	
+		
+
+
 ENDLINE;
 }
 function generateMenu($askedPage, $loggedIn) { // générer le menu à partir du fichier xml/pages.xml
@@ -163,12 +187,6 @@ function generateHTMLFooter() {
 
 	</div>
 
-
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.js"></script>
 ENDLINE;
 }
 

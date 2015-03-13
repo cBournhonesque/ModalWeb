@@ -1,21 +1,19 @@
 <?php
+
+/*
 $options = array (
 		'nom' => FILTER_SANITIZE_STRING,
+		'login' => FILTER_SANITIZE_SPECIAL_CHARS,
 		'prenom' => FILTER_SANITIZE_STRING, // Enlever les balises.
 		'email' => FILTER_VALIDATE_EMAIL, // Valider l'adresse de messagerie.
-		'age' => array (
-				'filter' => FILTER_VALIDATE_INT, // Valider l'entier.
-				'options' => array (
-						'min_range' => 0 
-				) 
-		) // Minimum 0.
-
-		 
-)
-;
+		'promotion' => FILTER_SANITIZE_NUMBER_INT,
+		'naissance' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+		'mdp1' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+		'mdp2' => FILTER_SANITIZE_FULL_SPECIAL_CHARS 
+);
 
 $_POST = filter_input_array ( INPUT_POST, $options );
-var_dump ( $_POST );
+*/
 
 // $_POST == secure ( $_POST ); // sécurisation contre injections SQL?
 
@@ -28,10 +26,18 @@ if (isset ( $_POST ["nom"] ))
 	$nom = $_POST ["nom"];
 else
 	$nom = "";
-if (isset ( $_POST ["promotion"] ))
-	$promotion = $_POST ["promotion"];
+if (isset ( $_POST ["sport"] ))
+	$sport = $_POST ["sport"];
 else
-	$promotion = "";
+	$sport = "";
+if (isset ( $_POST ["categorie"] ))
+	$categorie = $_POST ["categorie"];
+else
+	$categorie = "";
+if (isset ( $_POST ["equipe"] ))
+	$equipe = $_POST ["equipe"];
+else
+	$equipe = "";
 if (isset ( $_POST ["email"] ))
 	$email = $_POST ["email"];
 else
@@ -54,16 +60,17 @@ if (isset ( $_POST ["login"] ) && $_POST ["login"] != "" && isset ( $_POST ["ema
 		echo "Les mots de passe ne correspondent pas";
 	} else {
 		
-		$sth = $dbh->prepare ( "INSERT INTO `utilisateurs` (`login`, `mdp`, `nom`, `prenom`, `promotion`, `naissance`, `email`, `feuille`) VALUES(?,SHA1(?),?,?,?,?,?,?)" );
+		$sth = $dbh->prepare ( "INSERT INTO `utilisateurs` (`login`, `sport`, `mdp`, `nom`, `prenom`, `naissance`, `email`, `categorie`, `equipe`) VALUES(?,?,SHA1(?),?,?,?,?,?,?)" );
 		$sth->execute ( array (
 				$_POST ['login'],
+				$_POST ['sport'],
 				$_POST ['mdp1'],
 				$_POST ['nom'],
 				$_POST ['prenom'],
-				$_POST ['promotion'],
 				$_POST ['naissance'],
 				$_POST ['email'],
-				NULL 
+				$_POST ['categorie'],
+				$_POST ['equipe']
 		) );
 		
 		$form_values_valid = TRUE;
@@ -82,10 +89,22 @@ if (! $form_values_valid) { // formulaire non rempli
         <input type="email" id="inputEmail" name="email" value="' . $email . '" class="form-control" placeholder="Adresse email" required autofocus>
 			
 		<input type="text" id="login" name="login" value="' . $login . '" class="form-control" placeholder="Login" required>
+				<select id="sport" name="sport" value="' . $sport . '" class="form-control" placeholder="Sport" required>
+					<option value="basketball">Basketball</option>
+					<option value="volleyball">Volleyball</option>
+					<option value="football">Football</option>	
+						
+				</select>
 		<input type="text" id="prenom" name="prenom" value="' . $prenom . '" class="form-control" placeholder="Prénom" required>
 		<input type="text" id="nom" name="nom" value="' . $nom . '" class="form-control" placeholder="Nom" required>
-		<input type="number" id="promotion" name="promotion" value="' . $promotion . '" class="form-control" placeholder="XXXX" required>
+		<select id="categorie" name="categorie" value="' . $categorie . '" class="form-control" placeholder="Catégorie" required>
+					<option value="coach">Coach</option>
+					<option value="joueur">Joueur</option>
+					<option value="supporter">Supporter</option>	
+						
+				</select>
 		<input type="date" id="naissance" name="naissance" value="' . $naissance . '" class="form-control" placeholder="YYYY-MM-DD" required>
+		<input type="text" id="equipe" name="equipe" value="' . $equipe . '" class="form-control" placeholder="Equipe" required>
 			
         <label for="password1">Mot de passe:</label>
         <input type="password" id="password1" name="mdp1" class="form-control" required>

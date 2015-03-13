@@ -17,9 +17,9 @@ if (isset ( $_GET ['logOut'] )) { // s'il y a une demande de logOut (i.e. un cli
 	logOut ();
 }
 
-$dbh = Database::connect (); // connection à la base de donnée des utilisateurs
+$dbh = Database::connect (); // connection à la base de donnée de USports
                              
-// traitement du logIn (lorsque l'on sort de la page login, on a un paramètre todo=login à GET
+// traitement du logIn (lorsque l'on sort de la page login, on a un paramètre todo=login 
 if (array_key_exists ( 'todo', $_GET ) && $_GET ["todo"] == "login") {
 	logIn ( $dbh );
 }
@@ -40,6 +40,11 @@ if ($authorized) {
 }
 
 generateHTMLHeader ( $pageTitle, $askedPage );
+if ($pageTitle != "erreur" & file_exists("heading/heading_" . $askedPage . ".php")) { // page authorisée
+	include "heading/heading_" . $askedPage . ".php"; // Entête de la page
+}
+
+echo '</head>';
 
 ?>
 

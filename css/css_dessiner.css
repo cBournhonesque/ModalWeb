@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+
+#myCanvasDiv{
+	
+	border: 1px solid #e0e0e0;
+	margin-top: 10px;
+	
+}
+
+#terrainBasketball{
+	display: none;
+}
