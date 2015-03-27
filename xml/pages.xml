@@ -41,9 +41,9 @@
 	</page>
 
 	<page>
-		<nom>faq</nom>
-		<menutitle>FAQ</menutitle>
-		<title>Questions fréquentes?</title>
+		<nom>equipe</nom>
+		<menutitle>Equipe</menutitle>
+		<title>Equipe</title>
 	</page>
 	<bouton>
 		<nomBouton>About</nomBouton>

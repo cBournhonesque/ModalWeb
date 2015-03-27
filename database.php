@@ -26,11 +26,15 @@ class Rencontre {
 	public $score2;
 	public $date;
 	public $lieu;
+	public $heure;
+	public $duree;
+	public $commentaire;
 	public $poule;
 	public $cle;
-	public static function insererRencontre($dbh, $sport, $equipe1, $equipe2, $vainqueur, $score1, $score2, $date, $lieu, $poule) {
+	public $hebdomadaire;
+	public static function insererRencontre($dbh, $sport, $equipe1, $equipe2, $vainqueur, $score1, $score2, $date, $heure, $duree, $lieu, $poule, $commentaire, $hebdomadaire) {
 		// opérations sur la base
-		$sth = $dbh->prepare ( "INSERT INTO `rencontres` (`sport`, `equipe1`, `equipe2`, `vainqueur`, `score1`, `score2`, `date`, `lieu`, `poule`) VALUES(?,?,?,?,?,?,?,?,?)" );
+		$sth = $dbh->prepare ( "INSERT INTO `rencontre` (`sport`, `equipe1`, `equipe2`, `vainqueur`, `score1`, `score2`, `date`, `heure`, `duree`, lieu`, `poule`, `commentaire`, `hebdomadaire`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)" );
 		$sth->execute ( array (
 				$sport,
 				$equipe1,
@@ -39,27 +43,113 @@ class Rencontre {
 				$score1,
 				$score2,
 				$date,
+				$heure,
+				$duree,
 				$lieu,
-				$poule 
+				$poule,
+				$commentaire,
+				$hebdomadaire 
 		) );
+		
+		return TRUE;
 	}
+	public static function insererEntrainement($dbh, $sport, $equipe1, $date, $heure, $duree, $lieu, $commentaire, $hebdomadaire) {
+		// opérations sur la base
+		$sth = $dbh->prepare ( "INSERT INTO `rencontre` (`sport`, `equipe1`, `equipe2`, `vainqueur`, `score1`, `score2`, `date`, `heure`, `duree`, lieu, poule, commentaire,hebdomadaire) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)" );
+		$sth->execute ( array (
+				$sport,
+				$equipe1,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				$date,
+				$heure,
+				$duree,
+				$lieu,
+				NULL,
+				$commentaire,
+				$hebdomadaire 
+		) );
+		
+		return TRUE;
+	}
+	public static function getSport($dbh, $login) {
+		$query = 'SELECT `sport` FROM rencontre WHERE `login`=$login';
+		$sth = $dbh->prepare ( $query );
+		
+		$sth->setFetchMode ( PDO::FETCH_CLASS, 'Rencontre' );
+		$sth->execute ();
+		
+		$sth->fetch ();
+		$sth->closeCursor ();
+		return $sth;
+	}
+	public static function getEntrainements($dbh) {
+		$query = 'SELECT `date`,`heure`,`duree` FROM rencontre WHERE `equipe2` IS NULL or `equipe2`=""';
+		$sth = $dbh->prepare ( $query );
+		
+		$sth->setFetchMode ( PDO::FETCH_CLASS, 'Rencontre' );
+		$sth->execute ();
+		
+		return $sth->fetchAll ();
+		$sth->closeCursor ();
+	}
+}
+class Message {
+	public $cle;
+	public $emetteur;
+	public $date;
+	public $destinataire;
+	public $titre;
+	public static function getSentMessage($dbh, $emetteur) {
+		$query = "SELECT * FROM message WHERE emetteur=? ORDER BY date DESC";
+		$sth = $dbh->prepare ( $query );
+		
+		$sth->setFetchMode ( PDO::FETCH_CLASS, 'Message' );
+		$sth->execute ( array (
+				$emetteur
+		) );
+		$messages = $sth->fetchAll ();
+		
+		$sth->closeCursor ();
+		if (! $messages)
+			return null;
+		else
+			return $messages;
+	}
+	
+	public static function getReceivedMessage($dbh, $destinataire) {
+		$query = "SELECT * FROM message WHERE destinataire=? ORDER BY date DESC";
+		$sth = $dbh->prepare ( $query );
+	
+		$sth->setFetchMode ( PDO::FETCH_CLASS, 'Message' );
+		$sth->execute ( array (
+				$destinataire
+		) );
+		$messages = $sth->fetchAll ();
+	
+		$sth->closeCursor ();
+		if (! $messages)
+			return null;
+		else
+			return $messages;
+	}
+	
 }
 class Utilisateur {
 	public $login;
 	public $mdp;
 	public $nom;
 	public $prenom;
-	public $promotion;
+	public $sport;
 	public $naissance;
 	public $email;
-	public $feuille;
+	public $categorie;
+	public $equipe;
 	public function __toString() {
 		$date = explode ( "-", $this->naissance );
-		if (! is_null ( $this->promotion )) {
-			return "[" . $this->login . "] " . $this->prenom . " <b>" . $this->nom . "</b>, né le " . $date [2] . "/" . $date [1] . "/" . $date [0] . ", X" . $this->promotion . ", " . $this->email;
-		} else {
-			return "[" . $this->login . "] " . $this->prenom . " <b>" . $this->nom . "</b>, né le " . $date [2] . "/" . $date [1] . "/" . $date [0] . ", " . $this->email;
-		}
+		return "[" . $this->login . "] " . $this->prenom . " <b>" . $this->nom . "</b>, né le " . $date [2] . "/" . $date [1] . "/" . $date [0] . ", " . $this->email;
 	}
 	public static function amisDe($dbh, $login) {
 		$user = Utilisateur::getUtilisateur ( $dbh, $login );
@@ -102,7 +192,7 @@ class Utilisateur {
 			return $user;
 		}
 	}
-	public static function insererUtilisateur($dbh, $login, $mdp, $nom, $prenom, $promotion, $naissance, $email, $feuille) {
+	public static function insererUtilisateur($dbh, $login, $mdp, $nom, $prenom, $sport, $naissance, $email, $categorie, $equipe) {
 		// opérations sur la base
 		$test = Utilisateur::getUtilisateur ( $dbh, $login );
 		if (! is_null ( $test )) {
@@ -110,16 +200,17 @@ class Utilisateur {
 			return FALSE;
 		} else {
 			
-			$sth = $dbh->prepare ( "INSERT INTO `utilisateurs` (`login`, `mdp`, `nom`, `prenom`, `promotion`, `naissance`, `email`, `feuille`) VALUES(?,SHA1(?),?,?,?,?,?,?)" );
+			$sth = $dbh->prepare ( "INSERT INTO `utilisateurs` (`login`, `sport`, `mdp`, `nom`, `prenom`, `naissance`, `email`, `categorie`, `equipe`) VALUES(?,?,SHA1(?),?,?,?,?,?,?)" );
 			$sth->execute ( array (
 					$login,
+					$sport,
 					$mdp,
 					$nom,
 					$prenom,
-					$promotion,
 					$naissance,
 					$email,
-					$feuille 
+					$categorie,
+					$equipe 
 			) );
 			return TRUE;
 		}

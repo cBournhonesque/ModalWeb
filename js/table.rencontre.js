@@ -4,6 +4,8 @@
  * Created by http://editor.datatables.net/generator
  */
 
+
+
 (function($){
 
 $(document).ready(function() {
@@ -29,8 +31,16 @@ $(document).ready(function() {
 				"dateFormat": "dd-mm-Y"
 			},
 			{
+				"label": "Heure",
+				"name": "heure"
+			},
+			{
 				"label": "Poule",
 				"name": "poule"
+			},
+			{
+				"label": "Commentaire",
+				"name": "commentaire"
 			}
 		]
 	} );
@@ -52,7 +62,13 @@ $(document).ready(function() {
 				"data": "date"
 			},
 			{
+				"data": "heure"
+			},
+			{
 				"data": "poule"
+			},
+			{
+				"data": "commentaire"
 			}
 		],
 		"tableTools": {

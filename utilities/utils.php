@@ -5,7 +5,8 @@ function secure($tab) {
 	}
 	return $tab;
 }
-function generateHTMLHeader($title, $css) {
+
+function generateHTMLHeader($title) {
 	echo <<<ENDLINE
 	<!DOCTYPE html>
 <html>
@@ -27,12 +28,8 @@ function generateHTMLHeader($title, $css) {
 	<!-- CSS Bootstrap -->
 <link href="css/bootstrap.css" rel="stylesheet">
 
-
 	<!-- CSS Perso -->
 <link href="css/welcome.css" rel="stylesheet">
-
-
-<link href="css/css_$css.css" rel="stylesheet">
 		
   
 
@@ -46,14 +43,6 @@ function generateHTMLHeader($title, $css) {
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/perso.js"></script>
 		
-
-		
-
-		
-	
-		
-
-
 ENDLINE;
 }
 function generateMenu($askedPage, $loggedIn) { // générer le menu à partir du fichier xml/pages.xml
@@ -63,7 +52,7 @@ function generateMenu($askedPage, $loggedIn) { // générer le menu à partir du
 	<header>
 	
 		<!-- Fixed navbar -->
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed"

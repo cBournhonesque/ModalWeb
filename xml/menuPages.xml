@@ -30,20 +30,15 @@
 		<title>Réalisez vos stratégies sportives</title>
 	</page>
 	<page>
-		<nom>planning</nom>
-		<menutitle>Planning</menutitle>
-		<title>Planning des entraînements</title>
-	</page>
-	<page>
 		<nom>resultats</nom>
 		<menutitle>Résultats</menutitle>
 		<title>Résultats des matchs</title>
 	</page>
 
 	<page>
-		<nom>faq</nom>
-		<menutitle>FAQ</menutitle>
-		<title>Questions fréquentes?</title>
+		<nom>equipe</nom>
+		<menutitle>Equipe</menutitle>
+		<title>Equipe</title>
 	</page>
 	<bouton>
 		<nomBouton>About</nomBouton>

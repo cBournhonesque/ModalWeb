@@ -28,27 +28,65 @@
  */
 ?>
 
-<div class="container" id="myCanvasDiv">
-	<div id="myCanvasColor">
-		<a href="#" onclick="project.currentStyle.strokeColor = 'red';">Rouge</a>
-		<a href="#" onclick="project.currentStyle.strokeColor = 'green';">Vert</a>
-		<a href="#" onclick="project.currentStyle.strokeColor = 'blue';">Bleu</a>
-		
+<div class="container-fluid" id="myCanvasDiv">
+	<div class="row">
+	<div class="col-md-2" id="myCanvasOptions">
+		<div id="myCanvasColor">
+			<p><strong>Couleur</strong></p>
+			<a href="#" 
+			onclick='project.currentStyle.strokeColor = "red";
+			 var sel = project.selectedItems;
+			  for(i=0;i<sel.length;i++){sel[i].strokeColor="red";}'><img
+
+				alt="fin" src="Media/Icones/dessiner/rouge.jpg"></a> <a href="#"
+				onclick="project.currentStyle.strokeColor = 'green';"><img alt="fin"
+				src="Media/Icones/dessiner/vert.jpg"></a> <a href="#"
+				onclick="project.currentStyle.strokeColor = 'blue';"><img alt="fin"
+				src="Media/Icones/dessiner/bleu.jpg"></a>
+
+		</div>
+		<div id="myCanvasWidth">
+			<p><strong>Epaisseur</strong></p>
+			<a href="#" onclick="project.currentStyle.strokeWidth = 1;"><img
+				alt="fin" src="Media/Icones/dessiner/fin.png"> </a> <a href="#"
+				onclick="project.currentStyle.strokeWidth = 3;"><img alt="fin"
+				src="Media/Icones/dessiner/moyen.png"> </a> <a href="#"
+				onclick="project.currentStyle.strokeWidth = 5;"><img alt="fin"
+				src="Media/Icones/dessiner/epais.png"> </a>
+				<a href="#"
+				onclick="project.currentStyle.dashArray = [10, 12];">Tirets </a>
+				<a href="#"
+				onclick="project.currentStyle.dashArray = null;">Continu </a>
+		</div>
+		<div id="myCanvasTools">
+			<p><strong>Forme</strong></p>
+			<a href="#" onclick="pencil.activate();"><img alt="fin"
+				src="Media/Icones/dessiner/stylo.png"> </a> <a href="#"
+				onclick="arrow.activate();"><img alt="fin"
+				src="Media/Icones/dessiner/precedent.png"> </a> <a href="#"
+				onclick="cross.activate();"><img alt="fin"
+				src="Media/Icones/dessiner/croix.png" id="croix"> </a> <a href="#"
+				onclick="circle.activate();"><img alt="fin"
+				src="Media/Icones/dessiner/cercle.png"> </a> <a href="#"
+				onclick="select.activate();"><img alt="fin"
+				src="Media/Icones/dessiner/select.png"> </a> <a href="#"
+				onclick="suppr.activate();">Suppr</a>
+		</div>
+		<div id="myCanvasSave">
+			<p><strong>Etapes</strong></p>
+			<a href="#" onclick="save();"><img alt="fin"
+				src="Media/Icones/dessiner/save.png"></a> <a href="#"
+				onclick="if(etape>=1){etape = etape -1; }load();">Slide Précédente</a>
+			<a href="#"
+				onclick="if (etape != saves.length - 1) {etape = etape + 1;};load();">Slide
+				Suivante</a> <span id="dessinerEtape"></span>
+		</div>
 	</div>
-	<div id="myCanvasWidth">
-		<a href="#" onclick="project.currentStyle.strokeWidth = 1;">Fin</a>
-		<a href="#" onclick="project.currentStyle.strokeWidth = 3;">Moyen</a> 
-		<a href="#" onclick="project.currentStyle.strokeWidth = 5;">Epais</a>
+	<div class="col-md-10" id="myCanvasFrame">
+		<canvas id="myCanvas" resize="true"
+			style="height: 500px; width: 1000px;"></canvas>
 	</div>
-	<div id="myCanvasTools">
-		<a href="#" onclick="pencil.activate();">Stylo</a> 
-		<a href="#" onclick="arrow.activate();">Flèche</a>
-		<a href="#" onclick="cross.activate();">Croix</a>
-		<a href="#" onclick="circle.activate();">Cercle</a>
-		<a href="#" onclick="select.activate();">Sélection</a>
 	</div>
-	<canvas id="myCanvas" resize="true"
-		style="height: 500px; width: 1000px;"></canvas>
 </div>
 
 <img alt="terrain-basketball" id="terrainBasketball"
